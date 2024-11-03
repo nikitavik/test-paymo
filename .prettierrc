@@ -1,0 +1,12 @@
+{
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "arrowParens": "always",
+    "tabWidth": 4,
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "importOrderGroupNamespaceSpecifiers": true,
+    "importOrderCaseInsensitive": true,
+    "importOrder": []
+}
