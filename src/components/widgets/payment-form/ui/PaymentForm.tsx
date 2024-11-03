@@ -10,15 +10,15 @@ import { Inputs } from './Inputs';
 
 import { formSchema } from '../model/schema';
 import { defaultValues, FormData } from '../model/form';
-import { DataTransfer } from '@/components/widgets/payment-form/model/data-transfer';
+import { submitForm } from './submit-form-action';
 
 interface PaymentForm {
-    name: string;
+    transactionReceiver: string;
     eventName: string;
 }
 
 export const PaymentForm: FC<PaymentForm> = (props) => {
-    const { name, eventName } = props;
+    const { transactionReceiver, eventName } = props;
 
     const formMethods = useForm<FormData>({
         resolver: zodResolver(formSchema),
@@ -27,15 +27,11 @@ export const PaymentForm: FC<PaymentForm> = (props) => {
 
     const { handleSubmit } = formMethods;
 
-    const onValidSubmit = (formData: unknown) => {
-        console.log(formData);
-        const dataToSend: Partial<DataTransfer> = {
-            custom_data: {
-                name,
-                eventName,
-            },
-        };
-    };
+    const onValidSubmit = (formData: FormData) =>
+        submitForm(formData, {
+            name: transactionReceiver,
+            eventName,
+        });
 
     return (
         <Card>
@@ -44,7 +40,7 @@ export const PaymentForm: FC<PaymentForm> = (props) => {
                     <fieldset className="flex flex-col gap-8">
                         <legend className="mb-6">
                             <h1 className="text-headlineM font-medium">
-                                {name} собирает на «{eventName}»
+                                {transactionReceiver} собирает на «{eventName}»
                             </h1>
                         </legend>
 
