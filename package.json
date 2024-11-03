@@ -1,6 +1,7 @@
 {
     "name": "test-paymo",
-    "version": "0.1.0",
+    "version": "1.0.0",
+    "description": "Test assigment payment page for PAYMO",
     "private": true,
     "scripts": {
         "dev": "next dev --turbopack",
@@ -9,6 +10,16 @@
         "lint": "next lint",
         "format": "prettier --write ."
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nikitavik/test-paymo.git"
+    },
+    "bugs": {
+        "url": "https://github.com/nikitavik/test-paymo/issues"
+    },
+    "homepage": "https://github.com/nikitavik/test-paymo#readme",
+    "author": "Nikita Kornilov <kornilov.nm@gmail.com>",
+    "license": "MIT",
     "dependencies": {
         "@hookform/resolvers": "^3.9.1",
         "@radix-ui/react-slot": "^1.1.0",
