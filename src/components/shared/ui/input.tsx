@@ -1,4 +1,4 @@
-import { forwardRef, InputHTMLAttributes } from 'react';
+import { forwardRef, InputHTMLAttributes, PropsWithoutRef } from 'react';
 import { cva } from 'class-variance-authority';
 
 import { cn } from '@/components/shared/lib/utils';
@@ -10,7 +10,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const inputVariants = cva(
     [
-        'flex h-[3.25rem] w-full px-4 rounded-xl',
+        'flex h-[3.25rem] w-full px-4 rounded-xl tabular-nums',
         'border text-textPrimary bg-transparent text-bodyM',
         'placeholder:text-textSecondary focus-visible:outline-none',
         'disabled:cursor-not-allowed disabled:opacity-50',
@@ -26,7 +26,7 @@ const inputVariants = cva(
     }
 );
 
-const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+const Input = forwardRef<HTMLInputElement, PropsWithoutRef<InputProps>>((props, ref) => {
     const { className, type, label, errorMessage, ...restProps } = props;
 
     const hasError = errorMessage !== undefined;

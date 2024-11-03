@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, forwardRef } from 'react';
+import { ButtonHTMLAttributes, forwardRef, PropsWithoutRef } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
@@ -37,7 +37,7 @@ export interface ButtonProps
     asChild?: boolean;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = forwardRef<HTMLButtonElement, PropsWithoutRef<ButtonProps>>(
     ({ className, variant, size, asChild = false, type, ...props }, ref) => {
         const Comp = asChild ? Slot : 'button';
         return (

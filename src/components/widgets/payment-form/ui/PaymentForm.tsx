@@ -1,31 +1,65 @@
+'use client';
 import { FC } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Card } from '@/components/shared/ui/card';
-import { Inputs } from '@/components/widgets/payment-form/ui/Inputs';
 import { Button } from '@/components/shared/ui/button';
 
-export const PaymentForm: FC = () => {
+import { Inputs } from './Inputs';
+
+import { formSchema } from '../model/schema';
+import { defaultValues, FormData } from '../model/form';
+import { DataTransfer } from '@/components/widgets/payment-form/model/data-transfer';
+
+interface PaymentForm {
+    name: string;
+    eventName: string;
+}
+
+export const PaymentForm: FC<PaymentForm> = (props) => {
+    const { name, eventName } = props;
+
+    const formMethods = useForm<FormData>({
+        resolver: zodResolver(formSchema),
+        defaultValues,
+    });
+
+    const { handleSubmit } = formMethods;
+
+    const onValidSubmit = (formData: unknown) => {
+        console.log(formData);
+        const dataToSend: Partial<DataTransfer> = {
+            custom_data: {
+                name,
+                eventName,
+            },
+        };
+    };
+
     return (
         <Card>
-            <form>
-                <fieldset className="flex flex-col gap-8">
-                    <legend className="mb-6">
-                        <h1 className="text-headlineM font-medium">
-                            Иван К. собирает на «Экскурсия»
-                        </h1>
-                    </legend>
+            <FormProvider {...formMethods}>
+                <form onSubmit={handleSubmit(onValidSubmit)}>
+                    <fieldset className="flex flex-col gap-8">
+                        <legend className="mb-6">
+                            <h1 className="text-headlineM font-medium">
+                                {name} собирает на «{eventName}»
+                            </h1>
+                        </legend>
 
-                    <Inputs />
+                        <Inputs />
 
-                    <div className="flex gap-4 flex-nowrap">
-                        <Button type="submit" variant="primary">
-                            Перевести
-                        </Button>
+                        <div className="flex gap-4 flex-nowrap">
+                            <Button type="submit" variant="primary">
+                                Перевести
+                            </Button>
 
-                        <Button variant="secondary">Вернуться</Button>
-                    </div>
-                </fieldset>
-            </form>
+                            <Button variant="secondary">Вернуться</Button>
+                        </div>
+                    </fieldset>
+                </form>
+            </FormProvider>
         </Card>
     );
 };
